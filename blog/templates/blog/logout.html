@@ -1,0 +1,8 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <hr style="width:100%;text-align:left;margin-left:0">
+        You're Successfully Logged Out
+    <hr style="width:100%;text-align:left;margin-left:0">
+    <h1><a href={% url 'blog:login'%}>Login Again? </a></h1>
+{% endblock %}
