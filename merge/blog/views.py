@@ -1,4 +1,5 @@
 from ast import Pass
+from datetime import date
 
 from sqlalchemy import null
 from .models import Category, Comment, Post,Tag
@@ -52,7 +53,6 @@ def post_form(request):
     if request.method == "POST":
         form = PostForm(request.POST,request.FILES)
         if form.is_valid():
-            print(form)
             post = form.save(commit=False)
         post.author = request.user
         post.published_date = timezone.now()
@@ -110,6 +110,12 @@ def register(request):
         msg="Somethings Wrong"
         if form.is_valid():
             form.save()
+            # user.dob = request.POST.dob
+            # today = date.today()
+            # dob = list(map(int,user['dob'].split('-')))
+            # age = today.year - dob[0] - ((today.month, today.day) < ( dob[1],  dob[2]))
+            # user.age=age
+            # user.save()
             return redirect('blog:login')
     form = UserRegisterForm()
 
@@ -138,6 +144,15 @@ def profile_edit(request):
     if request.method == "POST":
         form = EditProfileForm(request.POST,request.FILES,instance=request.user)
         if form.is_valid():
+            print(form)
+            # user = form.save(commit=False)
+            # user.dob = form.cleaned_data.get['dob']
+            # today = date.today()
+            # dob = list(map(int,user['dob'].split('-')))
+            # age = today.year - dob[0] - ((today.month, today.day) < ( dob[1],  dob[2]))
+            
+            # user.age=age
+            # user.save()
             form.save()
             return redirect('blog:profile')
     else:

@@ -1,14 +1,17 @@
+import datetime
 from pyexpat import model
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from autoslug import AutoSlugField
 from django.contrib.auth.models import AbstractUser
+from django.contrib.humanize.templatetags import humanize
 
 
 class CustomUser(AbstractUser):
-   image = models.ImageField(upload_to="images/",null=True,blank=True)
-
+    image = models.ImageField(upload_to="images/",null=True,blank=True)
+    dob = models.DateField(blank=True,null=True)
+    age = models.IntegerField(blank=True,null=True)
 
 class Category(models.Model):
     
@@ -42,8 +45,7 @@ class Post(models.Model):
     text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True, null=True)
-    
-    
+   
     def publish(self):
         self.published_date = timezone.now()
         self.save()

@@ -13,6 +13,7 @@ class UserRegisterForm(UserCreationForm):
     first_name = forms.CharField(max_length = 20)
     last_name = forms.CharField(max_length = 20)
     image=forms.FileField()
+    dob = forms.DateField()
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
@@ -23,7 +24,7 @@ class UserRegisterForm(UserCreationForm):
         user.last_name= self.cleaned_data['last_name']
         user.email= self.cleaned_data['email']
         user.image = self.cleaned_data['image']
-        
+        user.dob = self.cleaned_data['dob']
         
         if commit:
             user.save()
@@ -31,6 +32,6 @@ class UserRegisterForm(UserCreationForm):
 class EditProfileForm(UserChangeForm):
     class Meta:
         model=User
-        fields=('first_name','last_name','email','image')
+        fields=('first_name','last_name','email','image','dob')
         
         
